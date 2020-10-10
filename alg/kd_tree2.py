@@ -6,7 +6,7 @@
 @E-mail  : utopfish@163.com
 @Time    : 2020/9/29 15:27
 """
-# kdtree 包中实现算法源码
+# kdtree  source code
 # -*- coding: utf-8 -*-
 
 
@@ -46,14 +46,14 @@ class Node(object):
     @property
     def is_leaf(self):
         """ Returns True if a Node has no subnodes
-        # >>> 表示测试的意思
+        # >>> mean test sample in annotation
         >>> Node().is_leaf
         True
 
         >>> Node( 1, left=Node(2) ).is_leaf
         False
         """
-        # 如果当前值为空 or 所有返回的子节点都为空,bool()将给定参数转化为布尔类型
+        # return self.data is None or all subnode is None
         return (not self.data) or \
                (all(not bool(c) for c, p in self.children))
 
@@ -385,6 +385,7 @@ class KDNode(Node):
     def rebalance(self):
         """
         Returns the (possibly new) root of the rebalanced tree
+        //seem like a brute-force approach
         """
 
         return create([x.data for x in self.inorder()])
@@ -451,7 +452,7 @@ class KDNode(Node):
         # If the heap is at its capacity, we need to check if the
         # current node is closer than the current farthest node, and if
         # so, replace it.
-        #堆
+        #// use heapq
         item = (-nodeDist, next(counter), self)
         if len(results) >= k:
             if -nodeDist > results[0][0]:
